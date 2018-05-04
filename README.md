@@ -1,1 +1,3 @@
-# CS130B_Proj01
+Samuel Fu : jiefu@umail.ucsb.edu
+
+

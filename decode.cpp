@@ -60,66 +60,15 @@ int main(int argc, char* argv[]){
 	res = res.substr(0, res.size()-16);
 	res = res+ tail.substr(0,validBits);
 
-	
 
-/*
-
-	for(int i=0; i<res.size()-1; i++){
-		for(int j=3; j<=6; j++){
-			string str = res.substr(i,j);
-			if(table.find(str) != table.end()){
-				cout<< (char)(table[str]);
-				i=i+j;
-				break;
-			}
+	string current="";
+	for(int i=0; i<res.size(); i++){
+		current += res[i];
+		if(table.find(current)!= table.end()){
+			cout<<static_cast<char>(table[current]);
+			current="";
 		}
 	}
-
-*/
-
-
-	while(res.size()!=0){
-		for(int i=3; i<=6; i++){
-			string key = res.substr(0,i);
-			if(table.find(key) != table.end()){
-				cout<<(char)table[key];
-				if(key.size()!=res.size()){
-					res=res.substr(i);
-				}else if(key.size()==res.size()){
-					res="";
-				}
-	
-			}
-		}
-	}
-
-
-
-
-	/*
-	while(res.size()>5){
-		for(int i=3; i<=6; i++){
-			string key = res.substr(0,i);
-			if(table.find(key) != table.end()){
-				cout<<table[key];
-				res=res.substr(i);
-			}
-		}
-	}
-]
-	res=res+ tail.substr(0,validBits);
-	
-	while(res.size()>2){
-		for(int i=3; i<=6; i++){
-			string key = res.substr(0,i);
-			if(table.find(key) != table.end()){
-				cout<<table[key];
-				res=res.substr(i);
-			}
-		}
-	}
-	*/
-	
 
 
 	return 0;

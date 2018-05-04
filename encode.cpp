@@ -37,20 +37,33 @@ int main(int argc, char* argv[]){
 		iss >> asc;
 		string huffcode= line.substr(3);
 		trim(huffcode);
-		//pq.push(new Node(asc,fre,0,0));
 		table[asc]=huffcode;
 	}
 	
 
-
+/*
 	string res="";
 	char c;
 	while( cin.get(c)){
-		if(c==EOF)
-			break;
 		res=res+table[c];
 	}
-	
+*/
+
+	string res="";
+	string sub="";
+	char c;
+	while(cin.get(c)){
+		res=res+table[c];
+		if(res.size()>=8){
+			sub=res.substr(0,8);
+			bitset<8> bits(sub);
+			unsigned long n= bits.to_ulong();
+			cout<<static_cast<char>(n);
+			res=res.substr(8);
+		}
+	}
+
+	//padding with bits where the last 3 bits indicate number of valid bits in last 2 bytes
 	if(res.size()%8==0){
 		res=res+"0000000000000000";
 	}else if(res.size()%8==1){
@@ -68,10 +81,21 @@ int main(int argc, char* argv[]){
 	}else if(res.size()%8==7){
 		res=res+"000000111";
 	}
-	//cout<<res<<endl;
+
 
 
 	
+	//string sub="";
+	for(int i=0; i<res.size(); i=i+8){
+		sub = res.substr(i,8);
+		bitset<8> bits(sub);
+		unsigned long n= bits.to_ulong();
+		cout<<static_cast<char>(n);
+	}
+
+
+
+/*
 	if(res.size()%8==0){
 		while(res.size()!=0){
 			string sub= res.substr(0,8);
@@ -84,7 +108,9 @@ int main(int argc, char* argv[]){
 			unsigned long n= bits.to_ulong();
 			cout<<static_cast<char>(n);
 		}
+
 	}
+*/
 	
 	
 
