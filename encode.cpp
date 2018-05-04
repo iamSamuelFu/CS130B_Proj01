@@ -14,6 +14,15 @@
 
 using namespace std;
 
+void trim(string& s)
+{
+   size_t p = s.find_first_not_of(" \t");
+   s.erase(0, p);
+
+   p = s.find_last_not_of(" \t");
+   if (string::npos != p)
+      s.erase(p+1);
+}
 
 
 int main(int argc, char* argv[]){
@@ -21,23 +30,25 @@ int main(int argc, char* argv[]){
 	ifstream infile(argv[1]);
 
 	string line = "";
-	unordered_map<int, int> table;
+	unordered_map<int, string> table;
 	while (getline(infile, line)){
 		istringstream iss (line);
 		int asc;
 		iss >> asc;
-		int huffcode;
-		iss>> huffcode;
+		string huffcode= line.substr(3);
+		trim(huffcode);
 		//pq.push(new Node(asc,fre,0,0));
 		table[asc]=huffcode;
 	}
+	
+
 
 	string res="";
 	char c;
 	while( cin.get(c)){
 		if(c==EOF)
 			break;
-		res=res+to_string(table[c]);
+		res=res+table[c];
 	}
 	
 	if(res.size()%8==0){
@@ -59,6 +70,7 @@ int main(int argc, char* argv[]){
 	}
 	//cout<<res<<endl;
 
+
 	
 	if(res.size()%8==0){
 		while(res.size()!=0){
@@ -75,6 +87,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	
+
 
 
 

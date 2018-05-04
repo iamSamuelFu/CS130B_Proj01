@@ -16,6 +16,16 @@
 using namespace std;
 
 
+void trim(string& s)
+{
+   size_t p = s.find_first_not_of(" \t");
+   s.erase(0, p);
+
+   p = s.find_last_not_of(" \t");
+   if (string::npos != p)
+      s.erase(p+1);
+}
+
 
 int main(int argc, char* argv[]){
 
@@ -23,48 +33,51 @@ int main(int argc, char* argv[]){
 
 	string line = "";
 	
-	unordered_map<int, int> table;
-	//cout<<"11111111111111"<<endl;
+	unordered_map<string, int> table;
+	
+
 	while (getline(infile, line)){
 		istringstream iss (line);
 		int asc;
 		iss >> asc;
-		int huffcode;
-		iss>> huffcode;
+		string huffcode= line.substr(3);
+		trim(huffcode);
 		//pq.push(new Node(asc,fre,0,0));
 		table[huffcode]=asc;
 	}
-	//cout<<"11111111111111"<<endl;
+	
+
 	string res ="";
 	char c;
 	while( cin.get(c)){
 		res=res+bitset<8>(c).to_string();
 	}
 	
+
+
 	string tail= res.substr(res.size()-16);
 	int validBits= stoi(tail.substr(13),nullptr,2);
 	res = res.substr(0, res.size()-16);
 	res = res+ tail.substr(0,validBits);
 
-	//cout << to_string(table[101])<<endl;
+	
 
+/*
 
 	for(int i=0; i<res.size()-1; i++){
 		for(int j=3; j<=6; j++){
 			string str = res.substr(i,j);
-			if(table.find(stoi(str)) != table.end()){
-				cout<< (char)(table[stoi(str)]);
+			if(table.find(str) != table.end()){
+				cout<< (char)(table[str]);
 				i=i+j;
 				break;
 			}
 		}
 	}
 
+*/
 
 
-
-
-	/*
 	while(res.size()!=0){
 		for(int i=3; i<=6; i++){
 			string key = res.substr(0,i);
@@ -72,12 +85,14 @@ int main(int argc, char* argv[]){
 				cout<<(char)table[key];
 				if(key.size()!=res.size()){
 					res=res.substr(i);
+				}else if(key.size()==res.size()){
+					res="";
 				}
 	
 			}
 		}
 	}
-	*/
+
 
 
 
